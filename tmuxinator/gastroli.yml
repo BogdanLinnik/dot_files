@@ -1,0 +1,79 @@
+# ~/.tmuxinator/gastroli.yml
+
+name: gastroli
+root: ~/gastroli/
+
+windows:
+  - promoter:
+      pre:
+        - cd promoter2
+        - clear
+      layout: main-vertical
+      panes:
+        - vim ~/gastroli/promoter2
+        - rails_server:
+          - kill -9 $(lsof -t -i:3000)
+          - tmux resize-pane -R 70
+          - clear
+          - rails s
+        -
+
+  - gastroli-api:
+      pre:
+        - cd gastroli-api
+        - clear
+      layout: main-vertical
+      panes:
+        - editor:
+          - tmux split-window -d
+          - tmux resize-pane -D 25
+          - vim ~/gastroli/gastroli-api
+        - sidekiq_server:
+          - tmux resize-pane -R 70
+          - bin/redis-server
+          - clear
+          - bin/start_sidekiq
+        - rails_server:
+          - kill -9 $(lsof -t -i:3002)
+          - clear
+          - bin/start_app
+
+  - gastroli:
+      pre:
+        - cd gastroli2
+        - clear
+      layout: main-vertical
+      panes:
+        - editor:
+          - tmux split-window -d
+          - tmux resize-pane -D 25
+          - vim ~/gastroli/gastroli2
+        - webpack:
+          - tmux resize-pane -R 70
+          - bin/start_webpack
+        - rails_server:
+          - kill -9 $(lsof -t -i:3001)
+          - clear
+          - bin/start_app
+  - production:
+      pre:
+        - ssh root@promoter.gastroli.ua
+      layout: main-vertical
+      panes:
+        - rails_console:
+          - cd /var/www/promoter.gastroli.ua/current
+          - clear
+          - RAILS_ENV=production bundle exec rails c
+        - console:
+          - cd /var/www/promoter.gastroli.ua/current
+          - tmux resize-pane -R 40
+          - clear
+  - tunnels:
+      layout: main-vertical
+      panes:
+        - gastroli-api:
+          - cd gastroli2
+          - bin/start_tunnel
+        - gastroli:
+          - cd gastroli-api
+          - bin/start_tunnel
