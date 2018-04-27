@@ -34,7 +34,7 @@ Plugin 'Raimondi/delimitMate'
 Plugin 'junegunn/fzf'
 
 " TypeScript syntax
-Plugin 'leafgarland/typescript-vim'
+Plugin 'othree/yats.vim'
 
 " crystal syntax support.qweasd qwe
 Plugin 'rhysd/vim-crystal'
@@ -43,7 +43,8 @@ Plugin 'rhysd/vim-crystal'
 Plugin 'christoomey/vim-conflicted'
 
 " improved javscript syntax
-Plugin 'pangloss/vim-javascript'
+Plugin 'othree/yajs.vim'
+" Plugin 'pangloss/vim-javascript'
 
 " jsx syntax support
 Plugin 'mxw/vim-jsx'
@@ -78,7 +79,7 @@ nnoremap <space> <nop>
 " use the space key as our leader. put this near the top of your vimrc
 let mapleader = "\<space>"
 " r For auto indent filetype plugin indent on
-"filetype off
+filetype on
 "syntax highlighting
 syntax on
 " Use vim, not vi api
@@ -127,6 +128,7 @@ set smartindent
 
 " Performance
 syntax sync maxlines=256
+syntax enable
 set synmaxcol=120
 
 " Auto remove trailing blank spaces on each save
@@ -354,16 +356,6 @@ noremap <Leader>p :Ag <cr>
 noremap <Leader>m :FZF app/models<CR>
 nnoremap <silent> <Leader>f :Ag <C-R><C-W><CR>
 
-" Unmap GitGutter leaders that I don't use. This avoids delays for other leaders.
-autocmd VimEnter * nunmap <leader>hp
-autocmd VimEnter * nunmap <leader>hr
-autocmd VimEnter * nunmap <leader>hs
-
-" Unmap Bufexplorer leaders that I don't use. This avoids delays for other leaders.
-" autocmd VimEnter * nunmap <leader>bs
-" autocmd VimEnter * nunmap <leader>bv
-
-
 "============================================================================
 "====================== Plugins settings ====================================
 "============================================================================
@@ -427,7 +419,6 @@ let g:lightline = {
       \   'total_lines': ' %l/%L '
       \ },
       \}
-
 "============================================================================
 "====================== Commands ===========================================
 "============================================================================
@@ -507,3 +498,7 @@ command! -nargs=* Ag call fzf#run({
 \            '--color hl:68,hl+:110',
 \ 'down':    '50%'
 \ })
+
+" ======================= Type Script Syntax =================================
+
+autocmd BufRead,BufNewFile *.ts set syntax=typescript
