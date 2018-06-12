@@ -67,6 +67,13 @@ Plugin 'Yggdroot/indentLine'
 "Status bar
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+
+"Rubocop plugin
+Plugin 'lad/vim-rubocop'
+
+"Glyph icons plugin
+Plugin 'ryanoasis/vim-devicons'
+
 call vundle#end()
 
 
@@ -499,6 +506,14 @@ command! -nargs=* Ag call fzf#run({
 \ 'down':    '50%'
 \ })
 
-" ======================= Type Script Syntax =================================
+" ========================== Type Script Syntax ==============================
 
 autocmd BufRead,BufNewFile *.ts set syntax=typescript
+
+" =============================== Rubocop ====================================
+
+nnoremap    <C-r>       :RubocopThis<CR>
+nnoremap    <C-o>       :RubocopAll<CR>
+
+" ============================= Glyph icons =================================
+set guifont=Droid\ Sans\ Mono\ \for\ Powerline\ Nerd\ Fond\ Complete

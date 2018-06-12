@@ -7,7 +7,7 @@
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="agnoster"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -100,3 +100,11 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+alias rake='noglob rake'
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/bogdan/.sdkman"
+[[ -s "/home/bogdan/.sdkman/bin/sdkman-init.sh" ]] && source "/home/bogdan/.sdkman/bin/sdkman-init.sh"
+
+export ANDROID_HOME=~/Android/Sdk
+export PATH=$ANDROID_HOME/tools:$PATH
